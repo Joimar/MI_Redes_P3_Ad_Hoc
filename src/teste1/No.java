@@ -64,6 +64,7 @@ public class No
     public static void main(String args[]) throws IOException
     {
         Scanner scanner = new Scanner(System.in);
+        Scanner scannerMsg = new Scanner(System.in);
         No a = new No();
         a.getBateria();
         
@@ -75,13 +76,15 @@ public class No
         int inputBateria = scanner.nextInt();
         a.setBateria(inputBateria);
         
-        System.out.print("Insira Mensagem: \n");
-        String inputMensagem = scanner.next();
+        System.out.println("Insira Mensagem: \n");
+        String inputMensagem = scannerMsg.nextLine();
         a.setMensagem(inputMensagem);
         
         System.out.print("Insira IP do grupo: \n");
         String inputIPgrupo = scanner.next();
         a.setGrupo(inputIPgrupo);
+        
+        a.exibe();
         
         a.Transmite(a.getMensagem(), "1");
         a.Recebe(inputIPgrupo);
@@ -92,15 +95,11 @@ public class No
         pub.start();
          rece.start();
        
-        
-       
-       
-        
-        
+             
           
     }
     
-    public void exibe(){System.out.println("Valor: "+id+" "+bateria);}
+    public void exibe(){System.out.println("Valor: "+id+" "+bateria+" "+mensagem);}
     
     public void setData(String data)
     {
