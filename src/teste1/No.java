@@ -24,23 +24,59 @@ public class No
     private String mensagem;
     private ArrayList<String> listaIP = new ArrayList<String>();
     
-    private static MulticastPublisher publicante;
+    private MulticastPublisher publicante;
     //Thread nova;
     
-    private static MulticastReceiver recebedor;
+    private MulticastReceiver recebedor;
     //private static Thread recebe;
     
-    public No()
+    public No() throws UnknownHostException 
     {
+        Scanner scanner = new Scanner(System.in);
+        Scanner scannerMsg = new Scanner(System.in);
         
+       
+        
+     //   System.out.print("Insira o ID: \n");
+     //   int inputID = scanner.nextInt();
+     //   a.setID(inputID);
+        
+     //   System.out.print("Insira Bateria: \n");
+     //   int inputBateria = scanner.nextInt();
+     //   a.setBateria(inputBateria);
+        
+        System.out.println("Insira Mensagem: \n");
+        this.mensagem = scannerMsg.nextLine();
+        
+        
+        System.out.print("Insira IP do grupo: \n");
+        this.ipgrupo = scanner.next();
+        
+                       
+        //a.Transmite(a.getMensagem(), "1");
+        //a.Recebe(inputIPgrupo);
+        
+       executa();
         
        
     }
     
-    public void montaMensagem(String mensagem, String tipoMensagem)
+    public void executa() throws UnknownHostException
     {
+       MulticastReceiver recebedor = new MulticastReceiver (ipgrupo);
         
+       mensagem = "1"+mensagem;
+       MulticastPublisher publicante = new MulticastPublisher(mensagem, ipgrupo);
+       
+        Thread pub = new Thread(publicante);
+        Thread rece = new Thread(recebedor);
+        //Threads nao estao em loop. Por que?
+        rece.start();
+        
+        pub.start();
     }
+    
+    
     
     public void  Transmite(String mensagem, String tipoMensagem) throws UnknownHostException
     {
@@ -63,38 +99,9 @@ public class No
     
     public static void main(String args[]) throws IOException
     {
-        Scanner scanner = new Scanner(System.in);
-        Scanner scannerMsg = new Scanner(System.in);
-        No a = new No();
-        a.getBateria();
         
-        System.out.print("Insira o ID: \n");
-        int inputID = scanner.nextInt();
-        a.setID(inputID);
         
-        System.out.print("Insira Bateria: \n");
-        int inputBateria = scanner.nextInt();
-        a.setBateria(inputBateria);
-        
-        System.out.println("Insira Mensagem: \n");
-        String inputMensagem = scannerMsg.nextLine();
-        a.setMensagem(inputMensagem);
-        
-        System.out.print("Insira IP do grupo: \n");
-        String inputIPgrupo = scanner.next();
-        a.setGrupo(inputIPgrupo);
-        
-        a.exibe();
-        
-        a.Transmite(a.getMensagem(), "1");
-        a.Recebe(inputIPgrupo);
-        
-        Thread pub = new Thread(publicante);
-        Thread rece = new Thread(recebedor);
-        
-        pub.start();
-         rece.start();
-       
+       new No();
              
           
     }

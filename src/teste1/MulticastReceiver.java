@@ -44,14 +44,22 @@ public class MulticastReceiver implements Runnable {
             socket.joinGroup(group);
             System.out.println("Esperando mensagem do grupo ...");
             
-            DatagramPacket packet = new DatagramPacket(buf, buf.length);
-            socket.receive(packet);
-            String received = new String(
-              packet.getData(), 0, packet.getLength());
-            System.out.println(received);
+            while(true)
+            {
+                DatagramPacket packet = new DatagramPacket(buf, buf.length);
+                socket.receive(packet);
+                String received = new String(
+                packet.getData(), 0, packet.getLength());
+                System.out.println(received);
+                System.out.println("Loop Receiver");
+            }
             
-            socket.leaveGroup(group);
-            socket.close();
+            
+            
+            
+            
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(MulticastReceiver.class.getName()).log(Level.SEVERE, null, ex);
         }
