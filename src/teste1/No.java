@@ -16,18 +16,17 @@ import javax.swing.JOptionPane;
  * @author Joimar
  */
 public class No 
-{
-    private String data;
-    private  int id;
+{    
+    private int id;
     private int bateria;
     private String ipgrupo;
     private String mensagem;
     private ArrayList<String> listaIP = new ArrayList<String>();
     
-    private MulticastPublisher publicante;
+   // private MulticastPublisher publicante;
     //Thread nova;
     
-    private MulticastReceiver recebedor;
+  //  private MulticastReceiver recebedor;
     //private static Thread recebe;
     
     public No() throws UnknownHostException 
@@ -51,11 +50,7 @@ public class No
         
         System.out.print("Insira IP do grupo: \n");
         this.ipgrupo = scanner.next();
-        
-                       
-        //a.Transmite(a.getMensagem(), "1");
-        //a.Recebe(inputIPgrupo);
-        
+                
        executa();
         
        
@@ -65,7 +60,7 @@ public class No
     {
        MulticastReceiver recebedor = new MulticastReceiver (ipgrupo);
         
-       mensagem = "1"+mensagem;
+       mensagem = "1 "+mensagem;
        MulticastPublisher publicante = new MulticastPublisher(mensagem, ipgrupo);
        
         Thread pub = new Thread(publicante);
@@ -108,15 +103,6 @@ public class No
     
     public void exibe(){System.out.println("Valor: "+id+" "+bateria+" "+mensagem);}
     
-    public void setData(String data)
-    {
-        this.data = data;
-    }
-    
-    public String getData()
-    {
-        return data;
-    }
     
     public void setID(int id)
     {

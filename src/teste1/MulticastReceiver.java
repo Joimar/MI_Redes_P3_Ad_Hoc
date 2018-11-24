@@ -51,7 +51,7 @@ public class MulticastReceiver implements Runnable {
                 String received = new String(
                 packet.getData(), 0, packet.getLength());
                 System.out.println(received);
-                System.out.println("Loop Receiver");
+               // System.out.println("Loop Receiver");
             }
             
             

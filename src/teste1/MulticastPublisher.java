@@ -45,7 +45,7 @@ public class MulticastPublisher implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println("Publisher");
+            //System.out.println("Publisher");
             socket = new DatagramSocket();
             DatagramPacket packet  = new DatagramPacket(buf, buf.length, group, 4446);
             socket.send(packet);
