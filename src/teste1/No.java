@@ -36,16 +36,16 @@ public class No
         
        
         
-     //   System.out.print("Insira o ID: \n");
-     //   int inputID = scanner.nextInt();
-     //   a.setID(inputID);
+        System.out.print("Insira o ID: \n");
+        this.id = scanner.nextInt();
         
-     //   System.out.print("Insira Bateria: \n");
-     //   int inputBateria = scanner.nextInt();
-     //   a.setBateria(inputBateria);
         
-        System.out.println("Insira Mensagem: \n");
-        this.mensagem = scannerMsg.nextLine();
+        System.out.print("Insira Bateria: \n");
+        this.bateria = scanner.nextInt();
+        
+        
+       // System.out.println("Insira Mensagem: \n");
+       // this.mensagem = scannerMsg.nextLine();
         
         
         System.out.print("Insira IP do grupo: \n");
@@ -60,8 +60,9 @@ public class No
     {
        MulticastReceiver recebedor = new MulticastReceiver (ipgrupo);
         
-       mensagem = "1 "+mensagem;
-       MulticastPublisher publicante = new MulticastPublisher(mensagem, ipgrupo);
+       //mensagem = +id+" 1 "+mensagem;
+        mensagem = +id+" 1 "+bateria;
+        MulticastPublisher publicante = new MulticastPublisher(mensagem, ipgrupo);
        
         Thread pub = new Thread(publicante);
         Thread rece = new Thread(recebedor);
@@ -71,27 +72,12 @@ public class No
         pub.start();
     }
     
-    
-    
-    public void  Transmite(String mensagem, String tipoMensagem) throws UnknownHostException
+    public void eleicao()
     {
-       mensagem = tipoMensagem+mensagem;
-       MulticastPublisher publicante = new MulticastPublisher(mensagem, ipgrupo);
-     //  nova = new Thread(publicante);
-     //  nova.start();
-    }
-    
-    public void Recebe(String ipgrupo)throws UnknownHostException
-    {
-    
-        MulticastReceiver recebedor = new MulticastReceiver (ipgrupo);
-     //   recebe = new Thread(recebedor);
-     //   recebe.start();
         
     }
     
-    
-    
+
     public static void main(String args[]) throws IOException
     {
         

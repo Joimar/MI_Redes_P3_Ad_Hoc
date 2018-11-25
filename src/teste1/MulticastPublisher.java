@@ -6,6 +6,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,6 +42,11 @@ public class MulticastPublisher implements Runnable {
        // nova.start();
         
   //  }
+    
+    public void espera()
+    {
+        
+    }
  
     @Override
     public void run() {
@@ -53,13 +59,16 @@ public class MulticastPublisher implements Runnable {
                 DatagramPacket packet  = new DatagramPacket(buf, buf.length, group, 4446);
                 socket.send(packet);
                 socket.close();
-                
+                TimeUnit.SECONDS.sleep(2);
+                System.out.println("DORMIDA");
            //     this.wait();
             }
             
         } catch (SocketException ex) {
             Logger.getLogger(MulticastPublisher.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
+            Logger.getLogger(MulticastPublisher.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
             Logger.getLogger(MulticastPublisher.class.getName()).log(Level.SEVERE, null, ex);
         }
         
