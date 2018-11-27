@@ -73,9 +73,45 @@ public class No
         
     }
     
-    public void eleicao()
+    public void eleicao(MulticastReceiver recebedor)
     {
         
+        while(true)
+        {
+            String id = new String();
+            String bateria = new String();
+            id = recebedorID(recebedor);
+            int intID = Integer.parseInt(id);
+            
+            bateria = recebedorBateria(recebedor);
+            
+            this.addListaBateria(intID, bateria);
+            
+            
+        }
+        
+    }
+    
+    public String recebedorID(MulticastReceiver recebedor)
+    {
+    
+        String msg = recebedor.getMensagem();
+        
+        String[] split = msg.split(" ");
+        return split[0];
+    }
+    
+    public String recebedorBateria(MulticastReceiver recebedor)
+    {
+        String msg = recebedor.getMensagem();
+        String saida = new String();
+        int espacos = 0;
+        
+            
+            
+        String[] split = msg.split(" ");
+            
+        return split[3];
         
     }
     
@@ -118,9 +154,9 @@ public class No
         this.ipgrupo = ipgrupo;
     }
     
-    public void addListaBateria(String ip)
+    public void addListaBateria(int id, String ip)
     {
-        listaBateria.add(ip);
+        listaBateria.add(id,ip);
     }
     
     
