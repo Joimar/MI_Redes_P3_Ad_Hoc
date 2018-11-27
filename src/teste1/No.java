@@ -21,7 +21,7 @@ public class No
     private int bateria;
     private String ipgrupo;
     private String mensagem;
-    private ArrayList<String> listaIP = new ArrayList<String>();
+    private ArrayList<String> listaBateria = new ArrayList<String>();
     
    // private MulticastPublisher publicante;
     //Thread nova;
@@ -58,7 +58,7 @@ public class No
     
     public void executa() throws UnknownHostException
     {
-       MulticastReceiver recebedor = new MulticastReceiver (ipgrupo);
+        MulticastReceiver recebedor = new MulticastReceiver (ipgrupo);
         
        //mensagem = +id+" 1 "+mensagem;
         mensagem = +id+" 1 "+bateria;
@@ -66,14 +66,16 @@ public class No
        
         Thread pub = new Thread(publicante);
         Thread rece = new Thread(recebedor);
-        //Threads nao estao em loop. Por que?
+        
         rece.start();
         
         pub.start();
+        
     }
     
     public void eleicao()
     {
+        
         
     }
     
@@ -116,9 +118,9 @@ public class No
         this.ipgrupo = ipgrupo;
     }
     
-    public void addListaIP(String ip)
+    public void addListaBateria(String ip)
     {
-        listaIP.add(ip);
+        listaBateria.add(ip);
     }
     
     

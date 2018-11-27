@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,9 +31,16 @@ public class MulticastReceiver implements Runnable {
     protected byte[] buf = new byte[256];
     protected String ipGroup;       
     
+    private String mensagem;
+    
     public MulticastReceiver(String ipGroup) {
         this.ipGroup = ipGroup;
        
+    }
+    
+    public String getMensagem()
+    {
+        return mensagem;
     }
     
     
@@ -51,6 +59,9 @@ public class MulticastReceiver implements Runnable {
                 String received = new String(
                 packet.getData(), 0, packet.getLength());
                 System.out.println(received);
+                
+                mensagem = received;
+                TimeUnit.SECONDS.sleep(3);
                // System.out.println("Loop Receiver");
             }
             
@@ -61,6 +72,8 @@ public class MulticastReceiver implements Runnable {
             
             
         } catch (IOException ex) {
+            Logger.getLogger(MulticastReceiver.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
             Logger.getLogger(MulticastReceiver.class.getName()).log(Level.SEVERE, null, ex);
         }
                 
