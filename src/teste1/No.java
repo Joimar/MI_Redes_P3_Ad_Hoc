@@ -132,17 +132,40 @@ public class No
             System.out.println("TESTE");
             if(ponto_acesso==true)
                 { 
+                    System.out.println("AQUI");
                     listaGrupo += recebedor.getMensagem();
-                    System.out.println("AKAYYY");
-                    String mensagem3 =id+" 3 "+"Informacao3";
-                    for(int i=0;i<listaGruposIP.size();i++)
+                   // System.out.println("AKAYYY");
+                    String mensagem3 =id+" 3 "+"Informacao3 "+this.ipgrupo;
+                    int i;
+                    for(i=0;i<listaGruposIP.size();i++)
                     {
-                            
+                        System.out.println("DENTRO");
                         Broadcaster inter = new Broadcaster(mensagem3, listaGruposIP.get(i)); //envia para os outros grupos
+                        inter.run();
                     }
-                    
+                    i=0;
                 }
         }
+        
+        if(ponto_acesso == true)
+            {
+                //Juntar todas as mensagens
+                //System.out.println("AQUI");
+                listaGrupo += recebedor.getMensagem()+" \n ";
+               // System.out.println("=====> "+listaGrupo.length());
+                
+              //  System.out.println("====> "+msg[1]);
+                
+                
+                if(msg[1].equals("3")) //ponto de acesso pega dado dos outros
+                {
+                    listaGrupo += recebedor.getMensagem()+" \n ";
+                    System.out.println("CARTA3 "+recebedor.getMensagem());
+                }
+                
+                
+                
+            }
         
     }
     
@@ -174,32 +197,14 @@ public class No
                 //System.out.println("VERDADEIRO");
             }
             
-            if(ponto_acesso == true)
-            {
-                //Juntar todas as mensagens
-                System.out.println("AQUI");
-                listaGrupo += recebedor.getMensagem()+" \n ";
-                System.out.println(listaGrupo.length());
-                
-                //System.out.println("====> "+msg[1]);
-                
-                
-                if(msg[1].equals("3")) //ponto de acesso pega dado dos outros
-                {
-                    listaGrupo += recebedor.getMensagem()+" \n ";
-                    System.out.println("CARTA3 "+recebedor.getMensagem());
-                }
-                
-                
-                
-            }
-            else  // Faz mensagem 2
-            {
-                String mensagem2 =  this.id+" 2 "+"Informacao";
-                Broadcaster broadcaster = new Broadcaster(mensagem2, ipgrupo); //Envia informacao principal ao grupo
-                broadcaster.run();
-                System.out.println("FAZMENSAGEM");
-            }
+            
+             // Faz mensagem 2
+           // System.out.println("PPP");
+            String mensagem2 =  this.id+" 2 "+"Informacao";
+            Broadcaster broadcaster = new Broadcaster(mensagem2, ipgrupo); //Envia informacao principal ao grupo
+            broadcaster.run();
+           // System.out.println("FAZMENSAGEM");
+            
             
           
             
