@@ -64,13 +64,32 @@ public class No
         Thread pub = new Thread(publicante);
         Thread rece = new Thread(recebedor);
         
-         pub.start();
-        rece.start();
+        
         
        
-        
         System.out.println(recebedor.teste);
+        //System.out.println(recebedor.teste);
+        pub.start();
+        rece.start();
+        while(true)
+        {
+            
+            
+            
+            
+           // System.out.println(recebedor.teste);
+            //espera(2000000000);
+            //System.out.println("===>  "+recebedor.getMensagem());
+            System.out.println(recebedor.getMensagem());
+           if(recebedor.getMensagem()!= null)
+           { 
+               //System.out.println("Condicional"); 
+               interpretaMensagem(recebedor);
+           }
+            
+        }
         
+       
         
         
         //espera(2000);
@@ -85,44 +104,46 @@ public class No
     {
         String mensagem = new String();
         
-        System.out.println(mensagem);
+        mensagem = recebedor.getMensagem();
         String[] msg = mensagem.split(" ");
-        if(msg[1]== "1")
+        
+        //System.out.println("Interpretou mensagem");
+        
+        //System.out.println("==> "+msg[1]);
+        if(msg[1].equals("1"))
         {
+            
             eleicao(recebedor);
         }
     }
     
     public void eleicao(MulticastReceiver recebedor)
     {
-        String m1;
-        String m2;
         
-        m1 = id+" "+bateria;
         
-        while(true)
-        {
+      //  while(true)
+      //  {
             String id = new String();
             String bateria = new String();
             
             String[] msg = recebedor.getMensagem().split(" ");
-            
+            //System.out.println(msg);
             id = msg[0];
             bateria = msg[2];
             
             int intID = Integer.parseInt(id);
             int intBateria = Integer.parseInt(bateria);
-           
-            if(intBateria >= this.bateria)
+           //System.out.println(intBateria);
+            if(  (!id.equals(this.id))  &&   (intBateria >= this.bateria)   )
             {
                 ponto_acesso = false;
+                System.out.println("FALSO");
             }
-            else ponto_acesso = true;
+            else{ ponto_acesso = true;System.out.println("VERDADEIRO");}
             
-           System.out.println(ponto_acesso);
+          
             
-            
-        }
+        //}
         
     }
     

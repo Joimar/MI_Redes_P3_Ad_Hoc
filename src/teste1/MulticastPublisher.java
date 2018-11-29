@@ -53,15 +53,16 @@ public class MulticastPublisher implements Runnable {
         try {
             //System.out.println("Publisher");
             
-            
+            while(true)
+            {
                 socket = new DatagramSocket();
                 DatagramPacket packet  = new DatagramPacket(buf, buf.length, group, 4446);
                 socket.send(packet);
                 socket.close();
                 TimeUnit.SECONDS.sleep(2);
-                System.out.println("DORMIDA");
+           //     System.out.println("DORMIDA");
            //     this.wait();
-            
+            }
             
         } catch (SocketException ex) {
             Logger.getLogger(MulticastPublisher.class.getName()).log(Level.SEVERE, null, ex);

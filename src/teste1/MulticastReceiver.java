@@ -56,7 +56,8 @@ public class MulticastReceiver implements Runnable {
             socket.joinGroup(group);
             System.out.println("Esperando mensagem do grupo ...");
             
-            
+            while(true)
+            {
                 DatagramPacket packet = new DatagramPacket(buf, buf.length);
                 socket.receive(packet);
                 String received = new String(
@@ -64,13 +65,13 @@ public class MulticastReceiver implements Runnable {
                 
                 teste = "Funciona";
                 
-                System.out.println("=>>>> "+teste);
+               // System.out.println("=>>>> ");
                 System.out.println(received);
                 
                 mensagem = received;
                 TimeUnit.SECONDS.sleep(3);
                // System.out.println("Loop Receiver");
-            
+            }
             
             
             
