@@ -26,12 +26,21 @@ public class No
     
     private boolean ponto_acesso = false;
     
+    private ArrayList<String> listaGruposIP = new ArrayList<String>();
+    private String listaGrupo = "";
+    
     public No() throws UnknownHostException, InterruptedException 
     {
         Scanner scanner = new Scanner(System.in);
         Scanner scannerMsg = new Scanner(System.in);
         
-       
+        listaGruposIP.add("230.0.0.0");
+        listaGruposIP.add("224.0.0.0");
+        listaGruposIP.add("225.0.0.0");
+        listaGruposIP.add("226.0.0.0");
+        listaGruposIP.add("227.0.0.0");
+        listaGruposIP.add("228.0.0.0");
+        listaGruposIP.add("229.0.0.0");
         
         System.out.print("Insira o ID: \n");
         this.id = scanner.nextInt();
@@ -137,9 +146,20 @@ public class No
             if(  (!id.equals(this.id))  &&   (intBateria >= this.bateria)   )
             {
                 ponto_acesso = false;
-                System.out.println("FALSO");
+                //System.out.println("FALSO");
             }
-            else{ ponto_acesso = true;System.out.println("VERDADEIRO");}
+            else
+            { 
+                ponto_acesso = true;
+                //System.out.println("VERDADEIRO");
+            }
+            
+            if(ponto_acesso == true)
+            {
+                //Juntar todas as mensagens
+                listaGrupo += recebedor.getMensagem()+" \n ";
+                System.out.println(listaGrupo.length());
+            }
             
           
             
