@@ -22,12 +22,14 @@ public class No
     private String ipgrupo;
     private String mensagem;
     private ArrayList<String> listaBateria = new ArrayList<String>();
-    private ArrayList<Votante> listaVotantes = new ArrayList<Votante>();
+   // private ArrayList<Votante> listaVotantes = new ArrayList<Votante>();
     
     private boolean ponto_acesso = false;
     
     private ArrayList<String> listaGruposIP = new ArrayList<String>();
     private String listaGrupo = "";
+    
+    private int contador = 0;
     
     public No() throws UnknownHostException, InterruptedException 
     {
@@ -94,6 +96,7 @@ public class No
            { 
                //System.out.println("Condicional"); 
                interpretaMensagem(recebedor);
+               
            }
             
         }
@@ -109,7 +112,7 @@ public class No
         
     }
     
-    public void interpretaMensagem(MulticastReceiver recebedor)
+    public void interpretaMensagem(MulticastReceiver recebedor) throws UnknownHostException
     {
         String mensagem = new String();
         
@@ -124,9 +127,26 @@ public class No
             
             eleicao(recebedor);
         }
+        else if(msg[1].equals("2"))
+        {
+            System.out.println("TESTE");
+            if(ponto_acesso==true)
+                { 
+                    listaGrupo += recebedor.getMensagem();
+                    System.out.println("AKAYYY");
+                    String mensagem3 =id+" 3 "+"Informacao3";
+                    for(int i=0;i<listaGruposIP.size();i++)
+                    {
+                            
+                        Broadcaster inter = new Broadcaster(mensagem3, listaGruposIP.get(i)); //envia para os outros grupos
+                    }
+                    
+                }
+        }
+        
     }
     
-    public void eleicao(MulticastReceiver recebedor)
+    public void eleicao(MulticastReceiver recebedor) throws UnknownHostException
     {
         
         
@@ -157,8 +177,28 @@ public class No
             if(ponto_acesso == true)
             {
                 //Juntar todas as mensagens
+                System.out.println("AQUI");
                 listaGrupo += recebedor.getMensagem()+" \n ";
                 System.out.println(listaGrupo.length());
+                
+                //System.out.println("====> "+msg[1]);
+                
+                
+                if(msg[1].equals("3")) //ponto de acesso pega dado dos outros
+                {
+                    listaGrupo += recebedor.getMensagem()+" \n ";
+                    System.out.println("CARTA3 "+recebedor.getMensagem());
+                }
+                
+                
+                
+            }
+            else  // Faz mensagem 2
+            {
+                String mensagem2 =  this.id+" 2 "+"Informacao";
+                Broadcaster broadcaster = new Broadcaster(mensagem2, ipgrupo); //Envia informacao principal ao grupo
+                broadcaster.run();
+                System.out.println("FAZMENSAGEM");
             }
             
           
