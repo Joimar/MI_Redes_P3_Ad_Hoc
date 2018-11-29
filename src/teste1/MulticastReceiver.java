@@ -32,7 +32,7 @@ public class MulticastReceiver implements Runnable {
     protected String ipGroup;       
     
     private String mensagem;
-    
+    public volatile String teste = "OUT";
     public MulticastReceiver(String ipGroup) {
         this.ipGroup = ipGroup;
        
@@ -43,6 +43,10 @@ public class MulticastReceiver implements Runnable {
         return mensagem;
     }
     
+   // public String getTeste()
+    {
+        //return teste = "OUT";
+    }
     
     @Override
     public void run() {
@@ -52,18 +56,21 @@ public class MulticastReceiver implements Runnable {
             socket.joinGroup(group);
             System.out.println("Esperando mensagem do grupo ...");
             
-            while(true)
-            {
+            
                 DatagramPacket packet = new DatagramPacket(buf, buf.length);
                 socket.receive(packet);
                 String received = new String(
                 packet.getData(), 0, packet.getLength());
+                
+                teste = "Funciona";
+                
+                System.out.println("=>>>> "+teste);
                 System.out.println(received);
                 
                 mensagem = received;
                 TimeUnit.SECONDS.sleep(3);
                // System.out.println("Loop Receiver");
-            }
+            
             
             
             

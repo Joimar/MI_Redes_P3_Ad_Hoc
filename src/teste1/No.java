@@ -22,14 +22,11 @@ public class No
     private String ipgrupo;
     private String mensagem;
     private ArrayList<String> listaBateria = new ArrayList<String>();
+    private ArrayList<Votante> listaVotantes = new ArrayList<Votante>();
     
-   // private MulticastPublisher publicante;
-    //Thread nova;
+    private boolean ponto_acesso = false;
     
-  //  private MulticastReceiver recebedor;
-    //private static Thread recebe;
-    
-    public No() throws UnknownHostException 
+    public No() throws UnknownHostException, InterruptedException 
     {
         Scanner scanner = new Scanner(System.in);
         Scanner scannerMsg = new Scanner(System.in);
@@ -56,7 +53,7 @@ public class No
        
     }
     
-    public void executa() throws UnknownHostException
+    public void executa() throws UnknownHostException, InterruptedException
     {
         MulticastReceiver recebedor = new MulticastReceiver (ipgrupo);
         
@@ -67,25 +64,62 @@ public class No
         Thread pub = new Thread(publicante);
         Thread rece = new Thread(recebedor);
         
+         pub.start();
         rece.start();
         
-        pub.start();
+       
         
+        System.out.println(recebedor.teste);
+        
+        
+        
+        //espera(2000);
+        //System.out.println(recebedor.getMensagem()); 
+        
+        //System.out.println(recebedor.teste);
+       // interpretaMensagem(recebedor);
+        
+    }
+    
+    public void interpretaMensagem(MulticastReceiver recebedor)
+    {
+        String mensagem = new String();
+        
+        System.out.println(mensagem);
+        String[] msg = mensagem.split(" ");
+        if(msg[1]== "1")
+        {
+            eleicao(recebedor);
+        }
     }
     
     public void eleicao(MulticastReceiver recebedor)
     {
+        String m1;
+        String m2;
+        
+        m1 = id+" "+bateria;
         
         while(true)
         {
             String id = new String();
             String bateria = new String();
-            id = recebedorID(recebedor);
+            
+            String[] msg = recebedor.getMensagem().split(" ");
+            
+            id = msg[0];
+            bateria = msg[2];
+            
             int intID = Integer.parseInt(id);
+            int intBateria = Integer.parseInt(bateria);
+           
+            if(intBateria >= this.bateria)
+            {
+                ponto_acesso = false;
+            }
+            else ponto_acesso = true;
             
-            bateria = recebedorBateria(recebedor);
-            
-            this.addListaBateria(intID, bateria);
+           System.out.println(ponto_acesso);
             
             
         }
@@ -115,8 +149,10 @@ public class No
         
     }
     
+    
+    
 
-    public static void main(String args[]) throws IOException
+    public static void main(String args[]) throws IOException, UnknownHostException, InterruptedException
     {
         
         
@@ -159,5 +195,11 @@ public class No
         listaBateria.add(id,ip);
     }
     
-    
+    public void espera(int n)
+    {
+        for(int i=0;i<n;i++)
+        {
+            
+        }
+    }
 }
